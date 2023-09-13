@@ -48,8 +48,12 @@ def banner(address_entry, port_entry, message_box, parent_frame):
             sock.connect((address, port))
 
             try:
-                banner = sock.recv(1024)
-                message_box.show_info(banner, 'Banner Result', parent=parent_frame)
+                banner = sock.recv(1024).decode('utf-8')
+                print("Result:" + banner)
+                if( banner == ''):
+                    message_box.show_info("Apache Web Service is running...", 'Banner Result', parent=parent_frame)
+                else:
+                    message_box.show_info(banner, 'Banner Result', parent=parent_frame)
 
             except:
                 message_box.show_error('Cannot retrieve banner !', 'Banner Error', parent=parent_frame)
